@@ -1,0 +1,24 @@
+header {
+    text-align: center;
+}
+.container-container {
+    width: 380px; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+#grid-container {
+    display: grid;
+    
+    grid-template-columns: repeat(7, 50px);
+    grid-template-rows: repeat(7, 50px);
+
+    grid-gap: 5px;
+    text-align: center;
+
+    grid-area: cont;
+}
+
+.item {
+    border: 1px solid black;
+}
