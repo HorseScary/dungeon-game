@@ -22,3 +22,7 @@ header {
 .item {
     border: 1px solid black;
 }
+
+.item:hover {
+    background-color: #d1d1d1;
+}
