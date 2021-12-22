@@ -1,4 +1,5 @@
 function grid() {
+    // Creates the game board and places the player at the starting point
     for (let i = 1; i <= 49; i++) {
         document.getElementById("grid-container").innerHTML += `<div id="${i}" class="item" onclick="clicked(${i})">${i}</div>`; 
     }
@@ -7,7 +8,7 @@ function grid() {
 
 function clicked(space) {
     pos = document.getElementById("pos").getAttribute("position");
-    console.log(`space: ${space}\npos: ${pos}`)
+
     posUp = pos + 7;
     posDown = pos - 7;
 
@@ -17,13 +18,20 @@ function clicked(space) {
     move = false;
     open = false;
 
+    // Checks if a space is valid
     if (pos == space + 1 || pos == space - 1 || pos == spaceUp || pos == spaceUp + 1 || pos == spaceUp - 1 || pos == spaceDown || pos == spaceDown - 1 || pos == spaceDown + 1){
         move = true
     }
-    if (pos % 7 == 0 && space - posDown == 1 || pos % 7 == 0 && space - pos == 1 || pos % 7 == 0 && space - posUp == 1) {
-        move = false
-    }
     
+    // Checks if the space is on the other side of the board
+    if (pos % 7 == 0 && (space - 1) % 7 == 0) {
+        move = false;
+    } 
+    else if ((pos - 1) % 7 == 0 && space % 7 == 0) {
+        move = false;
+    }
+
+    // Moves the player
     if (move) {
         document.getElementById(pos).innerHTML = '';
         document.getElementById(space).innerHTML = `<img src="assets/player.png" alt ="a stick figure with a pointy hat">`;
