@@ -1,9 +1,14 @@
 function grid() {
     // Creates the game board and places the player at the starting point
     for (let i = 1; i <= 49; i++) {
-        document.getElementById("grid-container").innerHTML += `<div id="${i}" class="item" onclick="clicked(${i})">${i}</div>`; 
+        document.getElementById("grid-container").innerHTML += `<div id="${i}" class="item" occupied="false" onclick="clicked(${i})">${i}</div>`; 
     }
-    document.getElementById("28").innerHTML = '<img src="assets/player.png" alt="a stick figure with a pointy hat">';
+    document.getElementById("27").innerHTML = '<img src="assets/player.png" alt="a stick figure with a pointy hat">';
+    document.getElementById("22").innerHTML = '<img src="assets/door.png" alt="a door">';
+    document.getElementById("22").setAttribute("occupied", "door") 
+    document.getElementById("11").innerHTML = '<img src="assets/chest.png" alt="a chest">';
+    document.getElementById("11").setAttribute("occupied", "chest")
+
 }
 
 function clicked(space) {
@@ -30,6 +35,9 @@ function clicked(space) {
     else if ((pos - 1) % 7 == 0 && space % 7 == 0) {
         move = false;
     }
+    if (document.getElementById(space).getAttribute("occupied") != "false") {
+        move = false
+    }
 
     // Moves the player
     if (move) {
@@ -40,5 +48,10 @@ function clicked(space) {
     }
 }
 
+function chest() {
+    console.log("chest :)")
+}
 
-// if a mod b = a minus b 
+function door() {
+    console.log ("door :)")
+}
