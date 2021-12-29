@@ -40,19 +40,29 @@ function isValid(space) {
 }
 
 function chest() {
-    console.log("chest :)")
+    console.log("chest :)");
 }
 
 function door() {
-    console.log("door :)")
+    console.log("door :)");
 }
 
 // Handles when a space is clicked
 function clicked(space) {
+    type = document.getElementById(space).getAttribute("occupied")
+
     if (isValid(space)) {
         // Checks if the space that was clicked is occupied
-        if (document.getElementById(space).getAttribute("occupied") != "false") {
-            console.log("This space is occupied!")
+        if (type != "false") {
+            if (type == "door") {
+                door();
+            }
+            else if (type == "chest") {
+                chest();
+            }
+            else {
+                console.log("Somethings fucked up here")
+            }
         }
         else {
             // Moves the player 
@@ -64,6 +74,6 @@ function clicked(space) {
 
     }
     else {
-        console.log("Space is not valid!")
+        console.log("Space is not valid!");
     }
 }
