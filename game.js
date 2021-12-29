@@ -3,6 +3,8 @@ function grid() {
     for (let i = 1; i <= 49; i++) {
         document.getElementById("game-container").innerHTML += `<div id="${i}" class="item" occupied="false" onclick="clicked(${i})">${i}</div>`;
     }
+
+    // Creates things that are in the "start room"
     document.getElementById("27").innerHTML = '<img src="assets/player.png" alt="a stick figure with a pointy hat">';
     document.getElementById("22").innerHTML = '<img src="assets/door.png" alt="a door">';
     document.getElementById("22").setAttribute("occupied", "door")
@@ -26,7 +28,7 @@ function isValid(space) {
         valid = true
     }
 
-    // Checks if the space is on the other side of the board
+    // Makes sure the space is not on the other side of the board
     if (pos % 7 == 0 && (space - 1) % 7 == 0) {
         valid = false;
     }
@@ -37,13 +39,24 @@ function isValid(space) {
     return (valid)
 }
 
+function chest() {
+    console.log("chest :)")
+}
+
+function door() {
+    console.log("door :)")
+}
+
 // Handles when a space is clicked
 function clicked(space) {
     if (isValid(space)) {
+        // Checks if the space that was clicked is occupied
         if (document.getElementById(space).getAttribute("occupied") != "false") {
             console.log("This space is occupied!")
         }
         else {
+            // Moves the player 
+            // This should be its own function probably
             document.getElementById(pos).innerHTML = '';
             document.getElementById(space).innerHTML = `<img src="assets/player.png" alt ="a stick figure with a pointy hat">`;
             document.getElementById('pos').setAttribute("position", space);
@@ -53,12 +66,4 @@ function clicked(space) {
     else {
         console.log("Space is not valid!")
     }
-}
-
-function chest() {
-    console.log("chest :)")
-}
-
-function door() {
-    console.log("door :)")
 }
