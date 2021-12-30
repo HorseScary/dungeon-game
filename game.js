@@ -1,3 +1,9 @@
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min +1) + min);
+}
+
 function grid() {
     // Creates the game board and places the player at the starting point
     for (let i = 1; i <= 49; i++) {
