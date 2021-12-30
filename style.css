@@ -13,6 +13,19 @@ header {
     border: 1px solid black;
     grid-area: info;
 }
+#info h2 {
+    text-align: center;
+}
+
+#info-container {
+    display: grid;
+
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: repeat(3, 50px);
+}
+#info-container img {
+    float: right;
+}
 
 .container {
     width: 380px; 

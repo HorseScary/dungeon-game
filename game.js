@@ -4,13 +4,29 @@ function grid() {
         document.getElementById("game-container").innerHTML += `<div id="${i}" class="item" occupied="false" onclick="clicked(${i})">${i}</div>`;
     }
 
-    // Creates things that are in the "start room"
+    // Places things in the "starting room" on the board
     document.getElementById("27").innerHTML = '<img src="assets/player.png" alt="a stick figure with a pointy hat">';
     document.getElementById("22").innerHTML = '<img src="assets/door.png" alt="a door">';
     document.getElementById("22").setAttribute("occupied", "door")
     document.getElementById("11").innerHTML = '<img src="assets/chest.png" alt="a chest">';
     document.getElementById("11").setAttribute("occupied", "chest")
+    
+    updateInfo()
+}
 
+// Updates the game information in the "info" section based off of the info meta tags
+function updateInfo() {
+    hp = document.getElementById("hp").getAttribute("hp")
+    def = document.getElementById("def").getAttribute("def")
+    attack = document.getElementById("attack").getAttribute("attack")
+
+    document.getElementById("info-container").innerHTML = `
+    <img src="assets/heart.png" alt="a heart"> ${hp}
+    <br>
+    <img src="assets/chestplate.png" alt="a chestplate"> ${def}
+    <br>
+    <img src="assets/sword.png" alt="a sword"> ${attack}
+    `
 }
 
 // checks if a space is in range of the player
