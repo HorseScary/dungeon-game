@@ -21,11 +21,9 @@ function updateInfo() {
     attack = document.getElementById("attack").getAttribute("attack")
 
     document.getElementById("info-container").innerHTML = `
-    <img src="assets/heart.png" alt="a heart"> ${hp}
-    <br>
-    <img src="assets/chestplate.png" alt="a chestplate"> ${def}
-    <br>
-    <img src="assets/sword.png" alt="a sword"> ${attack}
+    <img src="assets/heart.png" alt="a heart"> <div class="stat">${hp}</div>
+    <img src="assets/chestplate.png" alt="a chestplate"> <div class="stat">${def}</div>
+    <img src="assets/sword.png" alt="a sword"> <div class="stat">${attack}</div>
     `
 }
 

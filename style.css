@@ -26,6 +26,10 @@ header {
 #info-container img {
     float: right;
 }
+#info-container > .stat {
+    padding-top: auto;
+    padding-bottom: auto;
+}
 
 .container {
     width: 380px; 
