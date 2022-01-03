@@ -59,8 +59,13 @@ function isValid(space) {
     return (valid)
 }
 
-function chest() {
-    console.log("chest :)");
+function chest(space) {
+    chestLoot = getRandomIntInclusive(0, 3);
+    if (chestLoot == 0) {
+        document.getElementById("hp")
+    }
+
+    document.getElementById(space).innerHTML = "<img src="assets/open-chest.png"
 }
 
 function door() {
@@ -78,7 +83,7 @@ function clicked(space) {
                 door();
             }
             else if (type == "chest") {
-                chest();
+                chest(space);
             }
             else {
                 console.log("Somethings fucked up here")
