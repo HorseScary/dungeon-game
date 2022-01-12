@@ -62,10 +62,17 @@ function isValid(space) {
 function chest(space) {
     chestLoot = getRandomIntInclusive(0, 3);
     if (chestLoot == 0) {
-        document.getElementById("hp")
+        document.getElementById("hp").setAttribute("hp", document.getElementById("hp").getAttribute("hp") + 5)
+        updateInfo()
+    }
+    else if (chestLoot == 1) {
+        document.getElementById("def").setAttribute("def", document.getElementById("def").getAttribute("def") + 5)
+    }
+    else {
+        console.log("penis")
     }
 
-    document.getElementById(space).innerHTML = "<img src="assets/open-chest.png"
+    document.getElementById(space).innerHTML = `<img src="assets/open-chest.png" alt="an open chest">`
 }
 
 function door() {
