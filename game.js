@@ -1,3 +1,5 @@
+//Function to get a random int (inclusively)
+//I stole this code from somewhere but idk where
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -18,8 +20,10 @@ function grid() {
     document.getElementById("11").innerHTML = '<img src="assets/chest.png" alt="a chest">';
     document.getElementById("11").setAttribute("occupied", "chest")
 
+    //places a slime enemy in an unoccupied space
     while (true) {
         slimePos = getRandomIntInclusive(1, 49)
+        //if the space is occupied choose a new space
         if (document.getElementById(slimePos).getAttribute("occupied") != "false") {
             a = getRandomIntInclusive(1, 49)
         }
@@ -114,13 +118,14 @@ function clicked(space) {
                 chest(space);
             }
             else {
-                console.log("Somethings fucked up here")
+                console.log("Space does not have a valid type")
             }
         }
         else {
             // Moves the player 
             // This should be its own function probably
             document.getElementById(pos).innerHTML = '';
+            document.getElementById(pos).setAttribute("occupied", "false")
             document.getElementById(space).innerHTML = `<img src="assets/player.png" alt ="a stick figure with a pointy hat">`;
             document.getElementById(space).setAttribute("occupied", "player")
             document.getElementById('pos').setAttribute("position", space);
