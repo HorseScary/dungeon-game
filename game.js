@@ -153,4 +153,7 @@ function moveSlime() {
             distance = 1
         }
     }
+    else{
+        console.log("Slime cant be moved, wtf did you do?")
+    }
 }
