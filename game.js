@@ -35,7 +35,6 @@ function grid() {
             a.setAttribute("pos", slimePos)
             document.head.appendChild(a)
 
-            console.log(document.getElementById("slimePos").getAttribute("pos"))
             break
         }
     }
@@ -139,8 +138,8 @@ function clicked(space) {
 }
 
 function moveSlime() {
-    slimePos = parseInt(document.getElementById("slimePos"))
-    player = parseInt(document.getElementById("pos"))
+    slimePos = parseInt(document.getElementById("slimePos").getAttribute("pos"))
+    player = parseInt(document.getElementById("pos").getAttribute("position"))
 
     if (slimePos > player) {
         if (slimePos - player > 7) {
