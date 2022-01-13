@@ -151,7 +151,7 @@ function moveSlime() {
         }
     }
     else if (slimePos < player){
-        if (player - slimepos > 7) {
+        if (player - slimePos > 7) {
             distance = 7
         } 
         else {
