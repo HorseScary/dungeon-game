@@ -1,7 +1,7 @@
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min +1) + min);
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 function grid() {
@@ -17,14 +17,21 @@ function grid() {
     document.getElementById("22").setAttribute("occupied", "door")
     document.getElementById("11").innerHTML = '<img src="assets/chest.png" alt="a chest">';
     document.getElementById("11").setAttribute("occupied", "chest")
-    
+
     while (true) {
-        a = getRandomIntInclusive(1, 49)
-        if (document.getElementById(a).getAttribute("occupied") != "false") {
-            a = getRandomIntInclusive(1,49)
+        slimePos = getRandomIntInclusive(1, 49)
+        if (document.getElementById(slimePos).getAttribute("occupied") != "false") {
+            a = getRandomIntInclusive(1, 49)
         }
         else {
-            document.getElementById(a).innerHTML = '<img src="assets/slime.png" alt="a slime">'
+            document.getElementById(slimePos).innerHTML = '<img src="assets/slime.png" alt="a slime">'
+
+            a = document.createElement("meta")
+            a.id = "slimePos"
+            a.setAttribute("pos", slimePos)
+            document.head.appendChild(a)
+
+            console.log(document.getElementById("slimePos").getAttribute("pos"))
             break
         }
     }
@@ -86,7 +93,7 @@ function chest(space) {
     }
 
     document.getElementById(space).innerHTML = `<img src="assets/open-chest.png" alt="an open chest">`
-    document.getElementById(space).setAttribute("occupied" , "oChest")
+    document.getElementById(space).setAttribute("occupied", "oChest")
 }
 
 function door() {
@@ -122,5 +129,28 @@ function clicked(space) {
     }
     else {
         console.log("Space is not valid!");
+    }
+    moveSlime()
+}
+
+function moveSlime() {
+    slimePos = parseInt(document.getElementById("slimePos"))
+    player = parseInt(document.getElementById("pos"))
+
+    if (slimePos > player) {
+        if (slimePos - player > 7) {
+            distance = -7
+        }
+        else {
+            distance = -1
+        }
+    }
+    else if (slimePos < player){
+        if (player - slimepos > 7) {
+            distance = 7
+        } 
+        else {
+            distance = 1
+        }
     }
 }
