@@ -12,11 +12,22 @@ function grid() {
 
     // Places things in the "starting room" on the board
     document.getElementById("27").innerHTML = '<img src="assets/player.png" alt="a stick figure with a pointy hat">';
+    document.getElementById("27").setAttribute("occupied", "player")
     document.getElementById("22").innerHTML = '<img src="assets/door.png" alt="a door">';
     document.getElementById("22").setAttribute("occupied", "door")
     document.getElementById("11").innerHTML = '<img src="assets/chest.png" alt="a chest">';
     document.getElementById("11").setAttribute("occupied", "chest")
     
+    while (true) {
+        a = getRandomIntInclusive(1, 49)
+        if (document.getElementById(a).getAttribute("occupied") != "false") {
+            a = getRandomIntInclusive(1,49)
+        }
+        else {
+            document.getElementById(a).innerHTML = '<img src="assets/slime.png" alt="a slime">'
+            break
+        }
+    }
     updateInfo()
 }
 
@@ -62,17 +73,20 @@ function isValid(space) {
 function chest(space) {
     chestLoot = getRandomIntInclusive(0, 3);
     if (chestLoot == 0) {
-        document.getElementById("hp").setAttribute("hp", document.getElementById("hp").getAttribute("hp") + 5)
+        document.getElementById("hp").setAttribute("hp", parseInt(document.getElementById("hp").getAttribute("hp")) + 5)
         updateInfo()
     }
     else if (chestLoot == 1) {
-        document.getElementById("def").setAttribute("def", document.getElementById("def").getAttribute("def") + 5)
+        document.getElementById("def").setAttribute("def", parseInt(document.getElementById("def").getAttribute("def")) + 5)
+        updateInfo()
     }
     else {
-        console.log("penis")
+        document.getElementById("attack").setAttribute("attack", parseInt(document.getElementById("attack").getAttribute("attack")) + 5)
+        updateInfo()
     }
 
     document.getElementById(space).innerHTML = `<img src="assets/open-chest.png" alt="an open chest">`
+    document.getElementById(space).setAttribute("occupied" , "oChest")
 }
 
 function door() {
@@ -101,6 +115,7 @@ function clicked(space) {
             // This should be its own function probably
             document.getElementById(pos).innerHTML = '';
             document.getElementById(space).innerHTML = `<img src="assets/player.png" alt ="a stick figure with a pointy hat">`;
+            document.getElementById(space).setAttribute("occupied", "player")
             document.getElementById('pos').setAttribute("position", space);
         }
 
