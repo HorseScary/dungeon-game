@@ -138,6 +138,10 @@ function clicked(space) {
 }
 
 function moveSlime() {
+    function slimeOccupied(distance) {
+        if (document.getElementById(toInt(document.getElementById("slimePos").getAttribute("pos")) + distance).getAttribute("occupied")=! "false")
+    }
+
     slimePos = parseInt(document.getElementById("slimePos").getAttribute("pos"))
     player = parseInt(document.getElementById("pos").getAttribute("position"))
 
@@ -160,4 +164,6 @@ function moveSlime() {
     else{
         console.log("Slime cant be moved, wtf did you do?")
     }
+    toSpace = slimePos + distance
+    
 }
