@@ -13,6 +13,10 @@ function grid() {
     }
 
     // Places things in the "starting room" on the board
+    /**
+     * The player starts in the top left corner of the map, and the door is in the bottom right
+    corner of the map. The chest is in the top right corner of the map.
+     */
     document.getElementById("27").innerHTML = '<img src="assets/player.png" alt="a stick figure with a pointy hat">';
     document.getElementById("27").setAttribute("occupied", "player")
     document.getElementById("22").innerHTML = '<img src="assets/door.png" alt="a door">';
@@ -21,6 +25,11 @@ function grid() {
     document.getElementById("11").setAttribute("occupied", "chest")
 
     //places a slime enemy in an unoccupied space
+/**
+ * The code creates a random number between 1 and 49, and checks if the space is occupied. If it is
+occupied, it creates a new random number and checks again. If it is not occupied, it places the
+slime in the space and creates a meta tag with the position of the slime.
+ */
     while (true) {
         slimePos = getRandomIntInclusive(1, 49)
         //if the space is occupied choose a new space
@@ -42,6 +51,9 @@ function grid() {
 }
 
 // Updates the game information in the "info" section based off of the info meta tags
+/**
+ * This function updates the information in the info-container div.
+ */
 function updateInfo() {
     hp = document.getElementById("hp").getAttribute("hp")
     def = document.getElementById("def").getAttribute("def")
@@ -54,7 +66,11 @@ function updateInfo() {
     `
 }
 
-// checks if a space is in range of the player
+/**
+ * Checks if the space is valid.
+ * @param space - The space that the player is trying to move to
+ * @returns The function isValid() is returning a boolean value.
+ */
 function isValid(space) {
     pos = document.getElementById("pos").getAttribute("position");
     valid = false
@@ -80,6 +96,13 @@ function isValid(space) {
     return (valid)
 }
 
+/**
+ * When the player lands on a chest space, a random number is generated between 0 and 3. If the
+number is 0, the player's HP is increased by 5. If the number is 1, the player's defense is
+increased by 5. If the number is 2, the player's attack is increased by 5.
+ * @param space - the id of the space that the chest is currently in
+ * @returns None
+ */
 function chest(space) {
     chestLoot = getRandomIntInclusive(0, 3);
     if (chestLoot == 0) {
