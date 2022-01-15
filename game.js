@@ -38,6 +38,7 @@ slime in the space and creates a meta tag with the position of the slime.
         }
         else {
             document.getElementById(slimePos).innerHTML = '<img src="assets/slime.png" alt="a slime">'
+            document.getElementById(slimePos).setAttribute("occupied", "slime")
 
             a = document.createElement("meta")
             a.id = "slimePos"
@@ -161,26 +162,55 @@ function clicked(space) {
 }
 
 function moveSlime() {
+    function slimeOccupied(distance) {
+        if (document.getElementById(parseInt(document.getElementById("slimePos").getAttribute("pos")) + distance).getAttribute("occupied")!= "false"){
+            return(false)
+        }
+        else {
+            return(true)
+        }
+    }
+
     slimePos = parseInt(document.getElementById("slimePos").getAttribute("pos"))
     player = parseInt(document.getElementById("pos").getAttribute("position"))
 
     if (slimePos > player) {
         if (slimePos - player > 7) {
             distance = -7
+            notDistance = -1
         }
         else {
             distance = -1
+            notDistance = -7
         }
+        if (slimeOccupied(distance) == true) {
+            distance = notDistance
+        }
+
     }
     else if (slimePos < player){
         if (player - slimePos > 7) {
             distance = 7
+            notDistance = 1
         } 
         else {
             distance = 1
+            notDistance = 7
+        }
+        if (slimeOccupied(distance) == true) {
+            distance = notDistance
         }
     }
+
     else{
         console.log("Slime cant be moved, wtf did you do?")
     }
+    toSpace = slimePos + distance
+
+    document.getElementById(slimePos).innerHTML = ''
+    document.getElementById(slimePos).setAttribute("occupied", "false")
+    document.getElementById(toSpace).innerHTML = '<img src="assets/slime.png" alt="a slime">'
+    document.getElementById(toSpace).setAttribute("occupied", "slime")
+    document.getElementById("slimePos").setAttribute("pos", toSpace)
+    
 }
