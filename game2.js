@@ -30,9 +30,18 @@ function isOccupied(space) {
     }
 }
 
+function isSpaceValid(space) {
+    return(false)
+}
+
 function clicked(space) {
     if (!isOccupied(space)) {
-        
+        if isSpaceValid(space) {
+            return(null)
+        }
+    }
+    else {
+
     }
 }
 
