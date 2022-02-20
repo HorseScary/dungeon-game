@@ -18,6 +18,20 @@ function placePlayer(playerPos) {
     
     updatePlayerPos(playerPos)
 }
+
+function placeDoor(doorPos) {
+    let doorTile = document.getElementById(doorPos)
+
+    doorTile.setAttribute("occupied", "door")
+    doorTile.innerHTML = `<img src="assets/door.png" alt="a door">`
+}
+
+function placeChest(chestPos) {
+    let chestTile = document.getElementById(chestPos)
+    chestTile.setAttribute("occupied", "chest") 
+    chestTile.innerHTML = `<img src="assets/chest.png" alt="a closed chest">`
+}
+
 function clearSpace(space) {
     document.getElementById(space).innerHTML = ''
     document.getElementById(space).setAttribute("occupied", "none")
@@ -29,6 +43,17 @@ function getPlayerPosition() {
 function updatePlayerPos(pos) {
     document.getElementById("player").setAttribute("pos", pos)
 }
+
+function tellPlayer(message) {
+    let messageContainer = document.getElementById("stuff")
+    messageContainer.innerHTML += `<p>${message}</p>`
+    scrollToBottom("stuff")
+}
+
+function scrollToBottom (id) { //thanks stackoverflow!
+    var div = document.getElementById(id);
+    div.scrollTop = div.scrollHeight - div.clientHeight;
+ } 
 
 function isOccupied(space) {
     let occupied = document.getElementById(space).getAttribute("occupied")
@@ -71,6 +96,7 @@ function movePlayer(space) {
     updatePlayerPos(space)
 }
 
+
 function clicked(space) {
     itemInSpace = isOccupied(space)
     if (!itemInSpace) {
@@ -79,11 +105,13 @@ function clicked(space) {
         }
     }
     else {
-
+        tellPlayer(`Cant move here! There is a ${itemInSpace} in the way!`)
     }
 }
 
 function gameStart(){
     makeBoard()
     placePlayer(27)
+    placeDoor(23)
+    placeChest(11)
 }

@@ -3,7 +3,7 @@ header {
 }
 .grid-container {
     display: grid;
-    grid-template-rows: repeat(3, 33%);
+    grid-template-columns: repeat(3, 33%);
     grid-template-areas: 'info cont stuff';
 }
 
@@ -54,4 +54,12 @@ header {
 
 .item:hover {
     background-color: #d1d1d1;
+}
+
+#stuff {
+    grid-area: stuff;
+    height: 500px;
+    border: 1px solid black;
+    overflow: scroll;
+    padding: 20px;
 }
