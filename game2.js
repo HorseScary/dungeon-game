@@ -1,4 +1,4 @@
-function getRandomIntInclusive(min, max) {
+function getRandomIntInclusive(min, max) { //thanks stackoverflow!!
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -15,7 +15,7 @@ function placePlayer(playerPos) {
 
     playerTile.setAttribute("occupied", "player")
     playerTile.innerHTML = '<img src="assets/player.png" alt="a stick figure wearing a pointy hat">'
-    
+
     updatePlayerPos(playerPos)
 }
 
@@ -28,30 +28,69 @@ function placeDoor(doorPos) {
 
 function placeChest(chestPos) {
     let chestTile = document.getElementById(chestPos)
-    chestTile.setAttribute("occupied", "chest") 
+    chestTile.setAttribute("occupied", "chest")
     chestTile.setAttribute("cheststatus", "closed")
     chestTile.innerHTML = `<img src="assets/chest.png" alt="a closed chest">`
 }
 
 function chestLoot() {
-    
+    loot = getRandomIntInclusive(1, 3)
+    if (loot == 1) {
+        increaseHealth(10)
+    }
+    else if (loot == 2) {
+        increaseAttack(5)
+    }
+    else if (loot == 3) {
+        increaseDef(5)
+    }
+
+    updateStats()
 }
 
 function getHealth() {
-    return(document.getElementById('hp').getAttribute('hp'))
+    return (document.getElementById('hp').getAttribute('hp'))
 }
 function getMaxHealth() {
-    return(document.getElementById('hp').getAttribute('maxhp'))
+    return (document.getElementById('hp').getAttribute('maxhp'))
 }
 
 function increaseHealth(amount) {
     let hp = document.getElementById('hp')
     hp.setAttribute('maxhp', parseInt(getMaxHealth()) + parseInt(amount))
     hp.setAttribute('hp', parseInt(getHealth()) + parseInt(amount))
+
+    tellPlayer(`Your health has increased by ${amount}`)
+}
+
+function getAttack() {
+    return (document.getElementById('attack').getAttribute('attack'))
+}
+
+function increaseAttack(amount) {
+    let attack = document.getElementById('attack')
+    attack.setAttribute('attack', parseInt(getAttack()) + parseInt(amount))
+    tellPlayer(`Your attack has increased by ${amount}!`)
+}
+
+function getDefence() {
+    return (document.getElementById("def").getAttribute('def'))
+}
+
+function increaseDef(amount) {
+    let def = document.getElementById('def')
+    def.setAttribute('def', parseInt(getDefence()) + parseInt(amount))
+    tellPlayer(`Your defence has increased by ${amount}!`)
 }
 
 function updateStats() {
-    document.getElementById()
+    defInfo = document.getElementById('definfo')
+    hpInfo = document.getElementById('hpinfo')
+    attackInfo = document.getElementById('attackinfo')
+
+    defInfo.innerHTML = (getDefence())
+    hpInfo.innerHTML = (`${getHealth()}/${getMaxHealth()}`)
+    attackInfo.innerHTML = (getAttack())
 }
 
 function clearSpace(space) {
@@ -60,7 +99,7 @@ function clearSpace(space) {
 }
 
 function getPlayerPosition() {
-    return(document.getElementById("player").getAttribute("pos"))
+    return (document.getElementById("player").getAttribute("pos"))
 }
 function updatePlayerPos(pos) {
     document.getElementById("player").setAttribute("pos", pos)
@@ -72,19 +111,19 @@ function tellPlayer(message) {
     scrollToBottom("stuff")
 }
 
-function scrollToBottom (id) { //thanks stackoverflow!
+function scrollToBottom(id) { //thanks stackoverflow!
     var div = document.getElementById(id);
     div.scrollTop = div.scrollHeight - div.clientHeight;
- } 
+}
 
 function isOccupied(space) {
     let occupied = document.getElementById(space).getAttribute("occupied")
 
     if (occupied != "none") {
-        return(occupied)
+        return (occupied)
     }
     else {
-        return(false)
+        return (false)
     }
 }
 
@@ -126,14 +165,19 @@ function clicked(space) {
             movePlayer(space)
         }
     }
+    else if (itemInSpace == 'chest') {
+        chestLoot()
+    }
     else {
         tellPlayer(`Cant move here! There is a ${itemInSpace} in the way!`)
     }
 }
 
-function gameStart(){
+function gameStart() {
     makeBoard()
     placePlayer(27)
     placeDoor(23)
     placeChest(11)
+
+    updateStats()
 }
