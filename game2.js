@@ -29,7 +29,29 @@ function placeDoor(doorPos) {
 function placeChest(chestPos) {
     let chestTile = document.getElementById(chestPos)
     chestTile.setAttribute("occupied", "chest") 
+    chestTile.setAttribute("cheststatus", "closed")
     chestTile.innerHTML = `<img src="assets/chest.png" alt="a closed chest">`
+}
+
+function chestLoot() {
+    
+}
+
+function getHealth() {
+    return(document.getElementById('hp').getAttribute('hp'))
+}
+function getMaxHealth() {
+    return(document.getElementById('hp').getAttribute('maxhp'))
+}
+
+function increaseHealth(amount) {
+    let hp = document.getElementById('hp')
+    hp.setAttribute('maxhp', parseInt(getMaxHealth()) + parseInt(amount))
+    hp.setAttribute('hp', parseInt(getHealth()) + parseInt(amount))
+}
+
+function updateStats() {
+    document.getElementById()
 }
 
 function clearSpace(space) {
