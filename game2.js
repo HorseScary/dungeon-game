@@ -33,7 +33,8 @@ function placeChest(chestPos) {
     chestTile.innerHTML = `<img src="assets/chest.png" alt="a closed chest">`
 }
 
-function chestLoot() {
+function chestLoot(chestSpace) {
+    chestTile = document.getElementById(chestSpace)
     loot = getRandomIntInclusive(1, 3)
     if (loot == 1) {
         increaseHealth(10)
@@ -45,7 +46,18 @@ function chestLoot() {
         increaseDef(5)
     }
 
+    chestTile.setAttribute('cheststatus', closed)
+    chestTile.innerHTML = `<img src="assets/open-chest.png" alt="an open chest">`
+
     updateStats()
+}
+
+function isChestOpen(chest) {
+    if (document.getElementById(chest).getAttribute('cheststatus') == 'closed') {
+        return(false)
+    } else {
+        return(true)
+    }
 }
 
 function getHealth() {
@@ -166,7 +178,11 @@ function clicked(space) {
         }
     }
     else if (itemInSpace == 'chest') {
-        chestLoot()
+        if (!isChestOpen(space)) {
+            chestLoot(space)
+        } else {
+            tellPlayer('This chest has already been looted!')
+        }
     }
     else {
         tellPlayer(`Cant move here! There is a ${itemInSpace} in the way!`)
