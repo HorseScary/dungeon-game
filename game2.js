@@ -20,6 +20,7 @@ function placePlayer(playerPos) {
 }
 function clearSpace(space) {
     document.getElementById(space).innerHTML = ''
+    document.getElementById(space).setAttribute("occupied", "none")
 }
 
 function getPlayerPosition() {
@@ -65,18 +66,15 @@ function isSpaceInRange(space) {
     return (valid)
 }
 function movePlayer(space) {
-    console.log(`moving player to ${space}`)
     clearSpace(getPlayerPosition())
     placePlayer(space)
     updatePlayerPos(space)
 }
 
 function clicked(space) {
-    console.log(`${space} has been clicked!`)
     itemInSpace = isOccupied(space)
     if (!itemInSpace) {
         if (isSpaceInRange(space)) {
-            console.log("space is in range!")
             movePlayer(space)
         }
     }
