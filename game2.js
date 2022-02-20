@@ -16,7 +16,6 @@ function placePlayer(playerPos) {
     playerTile.setAttribute("occupied", "player")
     playerTile.innerHTML = '<img src="assets/player.png" alt="a stick figure wearing a pointy hat">'
     
-    document.getElementById(playerPos).appendChild(playerTile)
     updatePlayerPos(playerPos)
 }
 function clearSpace(space) {
@@ -27,7 +26,7 @@ function getPlayerPosition() {
     return(document.getElementById("player").getAttribute("pos"))
 }
 function updatePlayerPos(pos) {
-    document.getElementById("player").setAttribute("pos", toString(pos))
+    document.getElementById("player").setAttribute("pos", pos)
 }
 
 function isOccupied(space) {
@@ -66,12 +65,14 @@ function isSpaceInRange(space) {
     return (valid)
 }
 function movePlayer(space) {
+    console.log(`moving player to ${space}`)
     clearSpace(getPlayerPosition())
     placePlayer(space)
     updatePlayerPos(space)
 }
 
 function clicked(space) {
+    console.log(`${space} has been clicked!`)
     itemInSpace = isOccupied(space)
     if (!itemInSpace) {
         if (isSpaceInRange(space)) {
