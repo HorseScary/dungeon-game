@@ -1,14 +1,85 @@
+// Functions for getting info
 function getRandomIntInclusive(min, max) { //thanks stackoverflow!!
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+function isChestOpen(chest) {
+    if (document.getElementById(chest).getAttribute('cheststatus') == 'closed') {
+        return(false)
+    } else {
+        return(true)
+    }
+}
+
+// stats
+function getHealth() {
+    return (document.getElementById('hp').getAttribute('hp'))
+}
+
+function getMaxHealth() {
+    return (document.getElementById('hp').getAttribute('maxhp'))
+}
+
+function getAttack() {
+    return (document.getElementById('attack').getAttribute('attack'))
+}
+
+function getDefence() {
+    return (document.getElementById("def").getAttribute('def'))
+}
+
+// movement
+function getPlayerPosition() {
+    return (document.getElementById("player").getAttribute("pos"))
+}
+
+function isOccupied(space) {
+    let occupied = document.getElementById(space).getAttribute("occupied")
+
+    if (occupied != "none") {
+        return (occupied)
+    }
+    else {
+        return (false)
+    }
+}
+
+function isSpaceInRange(space) {
+    pos = getPlayerPosition()
+    valid = false
+
+    posUp = pos + 7;
+    posDown = pos - 7;
+
+    spaceUp = space + 7
+    spaceDown = space - 7;
+
+    if (pos == space + 1 || pos == space - 1 || pos == spaceUp || pos == spaceUp + 1 || pos == spaceUp - 1 || pos == spaceDown || pos == spaceDown - 1 || pos == spaceDown + 1) {
+        valid = true
+    }
+
+    // Makes sure the space is not on the other side of the board
+    if (pos % 7 == 0 && (space - 1) % 7 == 0) {
+        valid = false;
+    }
+    else if ((pos - 1) % 7 == 0 && space % 7 == 0) {
+        valid = false;
+    }
+
+    return (valid)
+}
+
+// Functions for doing things
+
 function makeBoard() {
     for (let i = 1; i <= 49; i++) {
         document.getElementById("game-container").innerHTML += `<div id="${i}" class="item" occupied="none" onclick="clicked(${i})">${i}</div>`;
     }
 }
+
+//placing things
 
 function placePlayer(playerPos) {
     let playerTile = document.getElementById(playerPos)
@@ -52,21 +123,7 @@ function chestLoot(chestSpace) {
     updateStats()
 }
 
-function isChestOpen(chest) {
-    if (document.getElementById(chest).getAttribute('cheststatus') == 'closed') {
-        return(false)
-    } else {
-        return(true)
-    }
-}
-
-function getHealth() {
-    return (document.getElementById('hp').getAttribute('hp'))
-}
-function getMaxHealth() {
-    return (document.getElementById('hp').getAttribute('maxhp'))
-}
-
+// stats
 function increaseHealth(amount) {
     let hp = document.getElementById('hp')
     hp.setAttribute('maxhp', parseInt(getMaxHealth()) + parseInt(amount))
@@ -75,18 +132,10 @@ function increaseHealth(amount) {
     tellPlayer(`Your health has increased by ${amount}`)
 }
 
-function getAttack() {
-    return (document.getElementById('attack').getAttribute('attack'))
-}
-
 function increaseAttack(amount) {
     let attack = document.getElementById('attack')
     attack.setAttribute('attack', parseInt(getAttack()) + parseInt(amount))
     tellPlayer(`Your attack has increased by ${amount}!`)
-}
-
-function getDefence() {
-    return (document.getElementById("def").getAttribute('def'))
 }
 
 function increaseDef(amount) {
@@ -110,9 +159,6 @@ function clearSpace(space) {
     document.getElementById(space).setAttribute("occupied", "none")
 }
 
-function getPlayerPosition() {
-    return (document.getElementById("player").getAttribute("pos"))
-}
 function updatePlayerPos(pos) {
     document.getElementById("player").setAttribute("pos", pos)
 }
@@ -128,41 +174,7 @@ function scrollToBottom(id) { //thanks stackoverflow!
     div.scrollTop = div.scrollHeight - div.clientHeight;
 }
 
-function isOccupied(space) {
-    let occupied = document.getElementById(space).getAttribute("occupied")
 
-    if (occupied != "none") {
-        return (occupied)
-    }
-    else {
-        return (false)
-    }
-}
-
-function isSpaceInRange(space) {
-    pos = getPlayerPosition()
-    valid = false
-
-    posUp = pos + 7;
-    posDown = pos - 7;
-
-    spaceUp = space + 7
-    spaceDown = space - 7;
-
-    if (pos == space + 1 || pos == space - 1 || pos == spaceUp || pos == spaceUp + 1 || pos == spaceUp - 1 || pos == spaceDown || pos == spaceDown - 1 || pos == spaceDown + 1) {
-        valid = true
-    }
-
-    // Makes sure the space is not on the other side of the board
-    if (pos % 7 == 0 && (space - 1) % 7 == 0) {
-        valid = false;
-    }
-    else if ((pos - 1) % 7 == 0 && space % 7 == 0) {
-        valid = false;
-    }
-
-    return (valid)
-}
 function movePlayer(space) {
     clearSpace(getPlayerPosition())
     placePlayer(space)
