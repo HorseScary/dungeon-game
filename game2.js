@@ -71,6 +71,15 @@ function isSpaceInRange(space) {
     return (valid)
 }
 
+function getRandomUnoccupiedSpace() {
+    while (true) {
+        tile = getRandomIntInclusive(1, 49)
+        if (!isOccupied(tile)) {
+            return(tile)
+        }
+    }
+}
+
 // Functions for doing things
 
 function makeBoard() {
@@ -121,6 +130,12 @@ function chestLoot(chestSpace) {
     chestTile.innerHTML = `<img src="assets/open-chest.png" alt="an open chest">`
 
     updateStats()
+}
+
+function placeSlime(tile) {
+    slimeTile = document.getElementById(tile)
+    slimeTile.innerHTML = '<img src="assets/slime.png" alt="a blob of slime with eyes">'
+    slimeTile.setAttribute('occupied', 'slime')
 }
 
 // stats
@@ -206,6 +221,7 @@ function gameStart() {
     placePlayer(27)
     placeDoor(23)
     placeChest(11)
+    placeSlime(getRandomUnoccupiedSpace())
 
     updateStats()
 }
