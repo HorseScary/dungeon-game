@@ -80,6 +80,31 @@ function getRandomUnoccupiedSpace() {
     }
 }
 
+function getSlimes() {
+    return(document.querySelectorAll('[occupied="slime"]'))
+}
+
+function distanceToPlayer (space) {
+    player = getPlayerPosition
+    distance = Math.abs(player - space)
+}
+
+function isPlayerPositionSmaller (space) {
+    if (space > parseInt(getPlayerPosition())) {
+        return (true)
+    } else {
+        return(false)
+    }
+}
+
+function getClosestSpaceToPlayer (space) {
+    distance = distanceToPlayer(space)
+
+    if (isPlayerPositionSmaller(space)) {
+
+    }
+}
+
 // Functions for doing things
 
 function makeBoard() {
@@ -144,6 +169,16 @@ function placeSlime(tile) {
     slimeTile.setAttribute('occupied', 'slime')
 }
 
+function moveSlimes() {
+    slimes = getSlimes()
+    for (let i = 0; i < slimes.length; i++) {
+        let space = slimes[i].id
+        distance = distanceToPlayer(space)
+
+
+    }
+}
+
 // stats
 function increaseHealth(amount) {
     let hp = document.getElementById('hp')
@@ -195,7 +230,6 @@ function scrollToBottom(id) { //thanks stackoverflow!
     div.scrollTop = div.scrollHeight - div.clientHeight;
 }
 
-
 function movePlayer(space) {
     clearSpace(getPlayerPosition())
     placePlayer(space)
@@ -231,5 +265,6 @@ function gameStart() {
     placeChest(11)
     placeSlime(getRandomUnoccupiedSpace())
 
+    console.log(getSlimes())
     updateStats()
 }
