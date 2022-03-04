@@ -115,21 +115,27 @@ function placeChest(chestPos) {
 
 function chestLoot(chestSpace) {
     chestTile = document.getElementById(chestSpace)
-    loot = getRandomIntInclusive(1, 3)
-    if (loot == 1) {
-        increaseHealth(10)
+    
+    if (!isSpaceInRange(chestSpace)) {
+        tellPlayer('This chest appears to be too far away...')
     }
-    else if (loot == 2) {
-        increaseAttack(5)
-    }
-    else if (loot == 3) {
-        increaseDef(5)
-    }
+    else {
+        loot = getRandomIntInclusive(1, 3)
+        if (loot == 1) {
+            increaseHealth(10)
+        }
+        else if (loot == 2) {
+            increaseAttack(5)
+        }
+        else if (loot == 3) {
+            increaseDef(5)
+        }
 
-    chestTile.setAttribute('cheststatus', closed)
-    chestTile.innerHTML = `<img src="assets/open-chest.png" alt="an open chest">`
+        chestTile.setAttribute('cheststatus', closed)
+        chestTile.innerHTML = `<img src="assets/open-chest.png" alt="an open chest">`
 
-    updateStats()
+        updateStats()
+    }
 }
 
 function placeSlime(tile) {
@@ -204,10 +210,12 @@ function clicked(space) {
             movePlayer(space)
         }
     }
+
     else if (itemInSpace == 'chest') {
-        if (!isChestOpen(space)) {
+        if(!isChestOpen(space)) {
             chestLoot(space)
-        } else {
+        }
+        else {
             tellPlayer('This chest has already been looted!')
         }
     }
