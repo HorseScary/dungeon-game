@@ -71,6 +71,31 @@ function isSpaceInRange(space) {
     return (valid)
 }
 
+function isOnPlayersRow(space) {
+    player = getPlayerPosition()
+
+    for (i = 0; i <= 49; i+=7) {
+        upperLim = i+7
+        
+        if (space >= i && space <= upperLim && player >= i && player <= upperLim) {
+            return(true)
+        }
+        else {
+            return(false)
+        }
+    }
+}
+
+function isOnPlayersColumn(space) {
+    player - getPlayerPosition
+    if (player & 7 == space % 7) {
+        return(true)
+    }
+    else {
+        return(false)
+    }
+}
+
 function getRandomUnoccupiedSpace() {
     while (true) {
         tile = getRandomIntInclusive(1, 49)
@@ -97,11 +122,20 @@ function isPlayerPositionSmaller (space) {
     }
 }
 
-function getClosestSpaceToPlayer (space) {
+function getNextClosestSpace (space) {
     distance = distanceToPlayer(space)
+    if (distance < 7) {
+        mod = 1
+    }
+    else {
+        mod = 2
+    }
 
     if (isPlayerPositionSmaller(space)) {
-
+        return(space-mod)
+    }
+    else {
+        return(space+mod)
     }
 }
 
@@ -174,6 +208,11 @@ function moveSlimes() {
     for (let i = 0; i < slimes.length; i++) {
         let space = slimes[i].id
         distance = distanceToPlayer(space)
+        
+        if (isOnPlayersRow) {
+            amountToMove = 1
+        }  
+        else (amountToMove = 7)
 
 
     }
