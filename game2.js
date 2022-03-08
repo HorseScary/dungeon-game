@@ -328,6 +328,5 @@ function gameStart() {
     placeChest(11)
     placeSlime(getRandomUnoccupiedSpace())
 
-    console.log(getSlimes())
     updateStats()
 }
