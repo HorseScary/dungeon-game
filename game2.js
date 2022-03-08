@@ -205,15 +205,38 @@ function placeSlime(tile) {
 
 function moveSlimes() {
     slimes = getSlimes()
+
     for (let i = 0; i < slimes.length; i++) {
         let space = slimes[i].id
         distance = distanceToPlayer(space)
         
-        if (isOnPlayersRow) {
+        if (isOnPlayersRow()) {
             amountToMove = 1
         }  
-        else (amountToMove = 7)
 
+        else if (isOnPlayersColumn()) {
+            amountToMove = 7
+        }
+
+        else {
+            choice = getRandomIntInclusive(1,2)
+            if (choice == 1) {
+                amountToMove = 1
+            }
+            else {
+                amountToMove = 7
+            }
+        }
+
+        if (isPlayerPositionSmaller(space)) {
+            placeSlime(space-amountToMove)
+            clearSpace(space)
+        }
+
+        else {
+            placeSlime(parseInt(space)+parseInt(amountToMove))
+            clearSpace(space)
+        }
 
     }
 }
@@ -281,6 +304,7 @@ function clicked(space) {
     if (!itemInSpace) {
         if (isSpaceInRange(space)) {
             movePlayer(space)
+            moveSlimes()
         }
     }
 
