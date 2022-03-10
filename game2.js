@@ -316,6 +316,7 @@ function clicked(space) {
             tellPlayer('This chest has already been looted!')
         }
     }
+
     else {
         tellPlayer(`Cant move here! There is a ${itemInSpace} in the way!`)
     }
