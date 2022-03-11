@@ -139,6 +139,23 @@ function getNextClosestSpace (space) {
     }
 }
 
+function isNearObject(space) {
+    checks = [-1, 1, 7, -7]
+    hits = []
+
+    for (i = 0; i < 4; i++) {
+        if (!!isOccupied(space + checks[i])) {
+            hits[hits.length] = checks[i]
+        }
+    }
+
+    if (!!hits[0]) {
+        return(hits)
+    }
+    else {
+        return (false)
+    }
+}
 // Functions for doing things
 
 function makeBoard() {
@@ -229,13 +246,11 @@ function moveSlimes() {
         }
 
         if (isPlayerPositionSmaller(space)) {
-            placeSlime(space-amountToMove)
-            clearSpace(space)
+            small = true
         }
 
         else {
-            placeSlime(parseInt(space)+parseInt(amountToMove))
-            clearSpace(space)
+            small = false
         }
 
     }
