@@ -74,21 +74,18 @@ function isSpaceInRange(space) {
 function isOnPlayersRow(space) {
     player = getPlayerPosition()
 
-    for (i = 0; i <= 49; i+=7) {
-        upperLim = i+7
-        
+    for (i = 1; i <= 49; i+=7) {
+        upperLim = i + 7
         if (space >= i && space <= upperLim && player >= i && player <= upperLim) {
             return(true)
         }
-        else {
-            return(false)
-        }
     }
+    return(false)
 }
 
 function isOnPlayersColumn(space) {
-    player - getPlayerPosition
-    if (player & 7 == space % 7) {
+    player = getPlayerPosition()
+    if (player % 7 == space % 7) {
         return(true)
     }
     else {
@@ -227,11 +224,11 @@ function moveSlimes() {
         let space = slimes[i].id
         distance = distanceToPlayer(space)
         
-        if (isOnPlayersRow()) {
+        if (isOnPlayersRow(space)) {
             amountToMove = 1
         }  
 
-        else if (isOnPlayersColumn()) {
+        else if (isOnPlayersColumn(space)) {
             amountToMove = 7
         }
 
