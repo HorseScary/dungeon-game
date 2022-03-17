@@ -194,7 +194,7 @@ function getRandomUnoccupiedAdjacentSpace(space) {
 }
 
 function isSpaceOnTheOppositeSideOfTheMapUsingASpecifiedSpaceAsTheStartingPoint (space1, space2) {
-    console.log('fuck you')
+    console.log('a')
 }
 // Functions for doing things
 
