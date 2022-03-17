@@ -257,30 +257,22 @@ function moveSlimes() {
         
         if (amountToMove == 7) {
             if (isAbovePlayer(space)) {
-                console.log(`moving slime to ${space-amountToMove}`)
                 placeSlime(parseInt(space) - parseInt(amountToMove))
                 clearSpace(space)
-
             }
             else {
-                console.log(`moving slime to ${space + amountToMove}`)
                 placeSlime(space + amountToMove)
                 clearSpace(space)
-
             }
         }
         else if (amountToMove == 1) {
             if (isRightOfPlayer(space)) {
                 placeSlime(space - amountToMove)
                 clearSpace(space)
-
-                console.log(`moving slime to ${space - amountToMove}`)
             }
             else {
                 placeSlime(space + amountToMove)
                 clearSpace(space)
-
-                console.log(`moving slime to ${space + amountToMove}`)
             }
         }
     }
