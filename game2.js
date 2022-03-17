@@ -168,6 +168,34 @@ function isNearObject(space) {
         return (false)
     }
 }
+
+function getRandomUnoccupiedAdjacentSpace(space) {
+    offsets = [-7, -1, 1, 7]
+    falseCounter = 0
+
+    for (i = 0; i < 4; i++) {
+        target = space + offsets[i]
+        if (!isOccupied(target) || target < 1 || target > 49) {
+            offsets[i] = false
+            falseCounter += 1
+        }
+    }
+
+    if (falseCounter == 4) {
+        return(null)
+    }
+
+    while (true) {
+        space = getRandomIntInclusive(0,3)
+        if (offsets[space]) {
+            return (space + offsets[space])
+        }
+    }
+}
+
+function isSpaceOnTheOppositeSideOfTheMapUsingASpecifiedSpaceAsTheStartingPoint (space1, space2) {
+    console.log('fuck you')
+}
 // Functions for doing things
 
 function makeBoard() {
@@ -257,21 +285,39 @@ function moveSlimes() {
         
         if (amountToMove == 7) {
             if (isAbovePlayer(space)) {
-                placeSlime(parseInt(space) - parseInt(amountToMove))
-                clearSpace(space)
+                spaceMod = -1
             }
             else {
-                placeSlime(space + amountToMove)
-                clearSpace(space)
+                spaceMod = 1
             }
         }
         else if (amountToMove == 1) {
             if (isRightOfPlayer(space)) {
-                placeSlime(space - amountToMove)
+                spaceMod = -1
+            }
+            else {
+                spaceMod = 1
+            }
+        }
+
+        targetSpace = space + (amountToMove * spaceMod)
+        
+        if (!isOccupied(targetSpace)) {
+            placeSlime(targetSpace)
+            clearSpace(space)
+        }
+        else if (isOccupied(targetSpace) == 'player') {
+            attackPlayer(slime)
+        }
+        else {
+            newSpace = getRandomUnoccupiedAdjacentSpace(space)
+            
+            if (newSpace != null) {
+                placeSlime(newSpace)
                 clearSpace(space)
             }
             else {
-                placeSlime(space + amountToMove)
+                tellPlayer('A slime got trapped and disintegrated into a pile of goo!')
                 clearSpace(space)
             }
         }
