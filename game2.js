@@ -111,10 +111,25 @@ function distanceToPlayer (space) {
     distance = Math.abs(player - space)
 }
 
-function isPlayerPositionSmaller (space) {
-    if (space > parseInt(getPlayerPosition())) {
+function isAbovePlayer (space) {
+    player = parseInt(getPlayerPosition())
+    if (space > player) {
         return (true)
     } else {
+        return(false)
+    }
+}
+
+function isRightOfPlayer(space) {
+    player = parseInt(getPlayerPosition())
+
+    if (player % 7 == space % 7 ) {
+        return (null)
+    }
+    else if (player % 7 < space % 7 || space == 0) {
+        return(true)
+    }
+    else {
         return(false)
     }
 }
@@ -221,17 +236,15 @@ function moveSlimes() {
     slimes = getSlimes()
 
     for (let i = 0; i < slimes.length; i++) {
-        let space = slimes[i].id
+        let space = parseInt(slimes[i].id)
         distance = distanceToPlayer(space)
         
         if (isOnPlayersRow(space)) {
             amountToMove = 1
         }  
-
         else if (isOnPlayersColumn(space)) {
             amountToMove = 7
         }
-
         else {
             choice = getRandomIntInclusive(1,2)
             if (choice == 1) {
@@ -241,15 +254,35 @@ function moveSlimes() {
                 amountToMove = 7
             }
         }
+        
+        if (amountToMove == 7) {
+            if (isAbovePlayer(space)) {
+                console.log(`moving slime to ${space-amountToMove}`)
+                placeSlime(parseInt(space) - parseInt(amountToMove))
+                clearSpace(space)
 
-        if (isPlayerPositionSmaller(space)) {
-            small = true
+            }
+            else {
+                console.log(`moving slime to ${space + amountToMove}`)
+                placeSlime(space + amountToMove)
+                clearSpace(space)
+
+            }
         }
+        else if (amountToMove == 1) {
+            if (isRightOfPlayer(space)) {
+                placeSlime(space - amountToMove)
+                clearSpace(space)
 
-        else {
-            small = false
+                console.log(`moving slime to ${space - amountToMove}`)
+            }
+            else {
+                placeSlime(space + amountToMove)
+                clearSpace(space)
+
+                console.log(`moving slime to ${space + amountToMove}`)
+            }
         }
-
     }
 }
 
