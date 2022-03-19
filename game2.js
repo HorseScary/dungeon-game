@@ -175,10 +175,18 @@ function getRandomUnoccupiedAdjacentSpace(space) {
 
     for (i = 0; i < 4; i++) {
         target = space + offsets[i]
-        if (!isOccupied(target) || target < 1 || target > 49) {
+        if (!isSpaceOnTheOppositeSideOfTheMapUsingASpecifiedSpaceAsTheStartingPoint(space, target)) {
+            falseCounter += 1
+            offsets[i] == false
+
+            console.log(`other side of map`)
+        }
+        else if (!isOccupied(target) || target < 1 || target > 49) {
             offsets[i] = false
             falseCounter += 1
+            console.log(`occupied`)
         }
+        console.log(falseCounter)
     }
 
     if (falseCounter == 4) {
@@ -194,7 +202,12 @@ function getRandomUnoccupiedAdjacentSpace(space) {
 }
 
 function isSpaceOnTheOppositeSideOfTheMapUsingASpecifiedSpaceAsTheStartingPoint (space1, space2) {
-    console.log('a')
+    if ((space1 % 7 == 0 && space2 == 1) || (space1 % 7 == 1 && space2 % 7 == 0)) {
+        return(true)
+    }
+    else {
+        return(false)
+    }
 }
 // Functions for doing things
 
