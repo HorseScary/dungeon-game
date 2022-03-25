@@ -36,6 +36,7 @@ function getPlayerPosition() {
 }
 
 function isOccupied(space) {
+    console.log(`checking space ${space}`)
     let occupied = document.getElementById(space).getAttribute("occupied")
 
     if (occupied != "none") {
@@ -175,18 +176,21 @@ function getRandomUnoccupiedAdjacentSpace(space) {
 
     for (i = 0; i < 4; i++) {
         target = space + offsets[i]
-        if (!isSpaceOnTheOppositeSideOfTheMapUsingASpecifiedSpaceAsTheStartingPoint(space, target)) {
+        failLog = 'success'
+
+        if (isSpaceOnTheOppositeSideOfTheMapUsingASpecifiedSpaceAsTheStartingPoint(space, target)) {
             falseCounter += 1
             offsets[i] == false
 
-            console.log(`other side of map`)
+            failLog = (`other side of map`)
         }
-        else if (!isOccupied(target) || target < 1 || target > 49) {
+        else if (isOccupied(target) || target < 1 || target > 49) {
             offsets[i] = false
             falseCounter += 1
-            console.log(`occupied`)
+
+            failLog = (`occupied`)
         }
-        console.log(falseCounter)
+        console.log(`${failLog}\n${falseCounter}\nspace: ${space}\ntarget: ${target}`)
     }
 
     if (falseCounter == 4) {
@@ -194,15 +198,16 @@ function getRandomUnoccupiedAdjacentSpace(space) {
     }
 
     while (true) {
-        space = getRandomIntInclusive(0,3)
-        if (offsets[space]) {
-            return (space + offsets[space])
+        randomOffset = getRandomIntInclusive(0,3)
+        if (offsets[randomOffset]) {
+            console.log(`random space is ${offsets[randomOffset]}`)
+            return (space + offsets[randomOffset])
         }
     }
 }
 
 function isSpaceOnTheOppositeSideOfTheMapUsingASpecifiedSpaceAsTheStartingPoint (space1, space2) {
-    if ((space1 % 7 == 0 && space2 == 1) || (space1 % 7 == 1 && space2 % 7 == 0)) {
+    if ((space1 % 7 == 0 && space2 % 7 == 1) || (space1 % 7 == 1 && space2 % 7 == 0)) {
         return(true)
     }
     else {
@@ -314,7 +319,8 @@ function moveSlimes() {
         }
 
         targetSpace = space + (amountToMove * spaceMod)
-        
+
+        console.log(`slime is being moved to ${targetSpace}`)
         if (!isOccupied(targetSpace)) {
             placeSlime(targetSpace)
             clearSpace(space)
