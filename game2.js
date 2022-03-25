@@ -36,7 +36,6 @@ function getPlayerPosition() {
 }
 
 function isOccupied(space) {
-    console.log(`checking space ${space}`)
     let occupied = document.getElementById(space).getAttribute("occupied")
 
     if (occupied != "none") {
@@ -190,7 +189,6 @@ function getRandomUnoccupiedAdjacentSpace(space) {
 
             failLog = (`occupied`)
         }
-        console.log(`${failLog}\n${falseCounter}\nspace: ${space}\ntarget: ${target}`)
     }
 
     if (falseCounter == 4) {
@@ -200,7 +198,6 @@ function getRandomUnoccupiedAdjacentSpace(space) {
     while (true) {
         randomOffset = getRandomIntInclusive(0,3)
         if (offsets[randomOffset]) {
-            console.log(`random space is ${offsets[randomOffset]}`)
             return (space + offsets[randomOffset])
         }
     }
@@ -291,6 +288,7 @@ function moveSlimes() {
         else if (isOnPlayersColumn(space)) {
             amountToMove = 7
         }
+
         else {
             choice = getRandomIntInclusive(1,2)
             if (choice == 1) {
@@ -320,7 +318,6 @@ function moveSlimes() {
 
         targetSpace = space + (amountToMove * spaceMod)
 
-        console.log(`slime is being moved to ${targetSpace}`)
         if (!isOccupied(targetSpace)) {
             placeSlime(targetSpace)
             clearSpace(space)
