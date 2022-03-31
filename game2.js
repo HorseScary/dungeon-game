@@ -1,3 +1,7 @@
+const damageTable = {
+    "slime":5
+}
+
 // Functions for getting info
 function getRandomIntInclusive(min, max) { //thanks stackoverflow!!
     min = Math.ceil(min);
@@ -100,6 +104,10 @@ function getRandomUnoccupiedSpace() {
             return(tile)
         }
     }
+}
+
+function getLevel() {
+    return(parseInt(document.getElementById('level')))
 }
 
 function getSlimes() {
@@ -337,6 +345,21 @@ function moveSlimes() {
                 clearSpace(space)
             }
         }
+    }
+}
+
+function attackPlayer(attacker) {
+    damage = damageTable[attacker]
+    playerDef = getDefence()
+    level = getLevel()
+    
+    attackRoll = getRandomIntInclusive(1,100)
+    if (attackRole < playerDef) {
+        tellPlayer(`The ${attacker} hit glanced off your armor!`)
+    } 
+    else {
+        finalDamage = damage * (1 + (level * .1))
+        increaseHealth(-damage)
     }
 }
 
