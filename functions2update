@@ -1,0 +1,12 @@
+isSpaceInRange
+isOnPlayersRow
+isOnPlayersColumn
+getRandomUnoccupiedSpace
+distanceToPlayer
+isAbovePlayer?
+isRightOfPlayer
+getNextClosestSpace
+isNearObject
+getRandomUnoccupiedAdjacentSpace
+isSpaceOnTheOppositeSideOfTheMapUsingASpecifiedSpaceAsTheStartingPoint
+moveSlimes
