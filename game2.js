@@ -66,25 +66,21 @@ function isSpaceInRange(space) {
 }
 
 function isOnPlayersRow(space) {
-    player = getPlayerPosition()
+    player = getPlayerPosition().toString()
 
-    for (i = 1; i <= 49; i+=7) {
-        upperLim = i + 7
-        if (space >= i && space <= upperLim && player >= i && player <= upperLim) {
-            return(true)
-        }
+    if (player[1] == space.toString()[1]) {
+        return(true)
     }
     return(false)
 }
 
 function isOnPlayersColumn(space) {
-    player = getPlayerPosition()
-    if (player % 7 == space % 7) {
+    player = getPlayerPosition().toString()
+    
+    if (player[0] == space.toString()[0]) {
         return(true)
     }
-    else {
-        return(false)
-    }
+    return(false)
 }
 
 function getRandomUnoccupiedSpace() {
