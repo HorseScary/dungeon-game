@@ -85,7 +85,9 @@ function isOnPlayersColumn(space) {
 
 function getRandomUnoccupiedSpace() {
     while (true) {
-        tile = getRandomIntInclusive(1, 49)
+        x = getRandomIntInclusive(1,7)
+        y = getRandomIntInclusive(1,7)
+        tile = `${x}${y}`
         if (!isOccupied(tile)) {
             return(tile)
         }
