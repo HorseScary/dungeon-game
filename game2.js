@@ -222,8 +222,11 @@ function isSpaceOnTheOppositeSideOfTheMapUsingASpecifiedSpaceAsTheStartingPoint 
 // Functions for doing things
 
 function makeBoard() {
-    for (let i = 1; i <= 49; i++) {
-        document.getElementById("game-container").innerHTML += `<div id="${i}" class="item" occupied="none" onclick="clicked(${i})">${i}</div>`;
+    for (let i = 1; i <= 7; i++) {
+        for (let a = 1; a<=7; a++) {
+            document.getElementById("game-container").innerHTML += `<div id="${i}${a}" class="item" occupied="none" onclick="clicked(${i}${a}"</div>`
+        }
+//        document.getElementById("game-container").innerHTML += `<div id="${i}" class="item" occupied="none" onclick="clicked(${i})">${i}</div>`;
     }
 }
 
