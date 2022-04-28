@@ -51,28 +51,18 @@ function isOccupied(space) {
 }
 
 function isSpaceInRange(space) {
-    pos = getPlayerPosition()
-    valid = false
+    playerPos = getPlayerPosition()
+    distance = Math.abs(playerPos - space)
 
-    posUp = pos + 7;
-    posDown = pos - 7;
-
-    spaceUp = space + 7
-    spaceDown = space - 7;
-
-    if (pos == space + 1 || pos == space - 1 || pos == spaceUp || pos == spaceUp + 1 || pos == spaceUp - 1 || pos == spaceDown || pos == spaceDown - 1 || pos == spaceDown + 1) {
-        valid = true
+    if (!space) {
+        return(false)
     }
 
-    // Makes sure the space is not on the other side of the board
-    if (pos % 7 == 0 && (space - 1) % 7 == 0) {
-        valid = false;
-    }
-    else if ((pos - 1) % 7 == 0 && space % 7 == 0) {
-        valid = false;
+    else if (distance == 1 || distance == 10 || distance == 9 || distance == 11) {
+        return(true)
     }
 
-    return (valid)
+    return(false)
 }
 
 function isOnPlayersRow(space) {
@@ -224,7 +214,7 @@ function isSpaceOnTheOppositeSideOfTheMapUsingASpecifiedSpaceAsTheStartingPoint 
 function makeBoard() {
     for (let i = 1; i <= 7; i++) {
         for (let a = 1; a<=7; a++) {
-            document.getElementById("game-container").innerHTML += `<div id="${a}${i}" class="item" occupied="none" onclick="clicked(${a}${i}"</div>`
+            document.getElementById("game-container").innerHTML += `<div id="${a}${i}" class="item" occupied="none" onclick="clicked(${a}${i})">${a}${i}</div>`
         }
 //        document.getElementById("game-container").innerHTML += `<div id="${i}" class="item" occupied="none" onclick="clicked(${i})">${i}</div>`;
     }
