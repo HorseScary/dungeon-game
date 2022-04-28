@@ -224,7 +224,7 @@ function isSpaceOnTheOppositeSideOfTheMapUsingASpecifiedSpaceAsTheStartingPoint 
 function makeBoard() {
     for (let i = 1; i <= 7; i++) {
         for (let a = 1; a<=7; a++) {
-            document.getElementById("game-container").innerHTML += `<div id="${i}${a}" class="item" occupied="none" onclick="clicked(${i}${a}"</div>`
+            document.getElementById("game-container").innerHTML += `<div id="${a}${i}" class="item" occupied="none" onclick="clicked(${a}${i}"</div>`
         }
 //        document.getElementById("game-container").innerHTML += `<div id="${i}" class="item" occupied="none" onclick="clicked(${i})">${i}</div>`;
     }
@@ -449,9 +449,9 @@ function clicked(space) {
 
 function gameStart() {
     makeBoard()
-    placePlayer(27)
-    placeDoor(23)
-    placeChest(11)
+    placePlayer(64)
+    placeDoor(24)
+    placeChest(42)
     placeSlime(getRandomUnoccupiedSpace())
 
     updateStats()
