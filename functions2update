@@ -1,6 +1,3 @@
-isSpaceInRange
-isOnPlayersRow
-isOnPlayersColumn
 getRandomUnoccupiedSpace
 distanceToPlayer
 isAbovePlayer?
