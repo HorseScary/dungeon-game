@@ -17,6 +17,13 @@ function isChestOpen(chest) {
     }
 }
 
+function doesSpaceExist(space) {
+    if (document.getElementById(space)) {
+        return (true)
+    }
+    return (false)
+}
+
 // stats
 function getHealth() {
     return (document.getElementById('hp').getAttribute('hp'))
@@ -45,9 +52,7 @@ function isOccupied(space) {
     if (occupied != "none") {
         return (occupied)
     }
-    else {
-        return (false)
-    }
+    return (false)
 }
 
 function isSpaceInRange(space) {
@@ -107,27 +112,28 @@ function distanceToPlayer (space) {
     distance = Math.abs(player - space)
 }
 
-function isAbovePlayer (space) {
-    player = parseInt(getPlayerPosition())
-    if (space > player) {
+function isAbovePlayer (spaceY) {
+    playerY = getPlayerPosition()[1]
+    spaceY = spaceY.toString()[1]
+    if (spaceY > playerY) {
         return (true)
-    } else {
-        return(false)
     }
+    return(false)
 }
 
 function isRightOfPlayer(space) {
-    player = parseInt(getPlayerPosition())
+    spaceX = space.toString()[0]
+    spaceY = space.toString()[1]
+    playerX = getPlayerPosition()[0]
+    playerY = getPlayerPosition()[1]
 
-    if (player % 7 == space % 7 ) {
+    if (spaceX == playerX) {
         return (null)
     }
-    else if (player % 7 < space % 7 || space == 0) {
+    else if (playerX < spaceX) {
         return(true)
     }
-    else {
-        return(false)
-    }
+    return(false)
 }
 
 function getNextClosestSpace (space) {
@@ -147,43 +153,15 @@ function getNextClosestSpace (space) {
     }
 }
 
-function isNearObject(space) {
-    checks = [-1, 1, 7, -7]
-    hits = []
-
-    for (i = 0; i < 4; i++) {
-        if (!!isOccupied(space + checks[i])) {
-            hits[hits.length] = checks[i]
-        }
-    }
-
-    if (!!hits[0]) {
-        return(hits)
-    }
-    else {
-        return (false)
-    }
-}
-
 function getRandomUnoccupiedAdjacentSpace(space) {
-    offsets = [-7, -1, 1, 7]
+    offsets = [-10, -1, 1, 10]
     falseCounter = 0
 
     for (i = 0; i < 4; i++) {
-        target = space + offsets[i]
-        failLog = 'success'
-
-        if (isSpaceOnTheOppositeSideOfTheMapUsingASpecifiedSpaceAsTheStartingPoint(space, target)) {
+        spaceToCheck = space + offsets[i]
+        if (isOccupied(spaceToCheck)) {
             falseCounter += 1
-            offsets[i] == false
-
-            failLog = (`other side of map`)
-        }
-        else if (isOccupied(target) || target < 1 || target > 49) {
-            offsets[i] = false
-            falseCounter += 1
-
-            failLog = (`occupied`)
+            offsets[i] = null
         }
     }
 

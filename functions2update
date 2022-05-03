@@ -1,8 +1,3 @@
-distanceToPlayer
-isAbovePlayer?
-isRightOfPlayer
 getNextClosestSpace
-isNearObject
-getRandomUnoccupiedAdjacentSpace
 isSpaceOnTheOppositeSideOfTheMapUsingASpecifiedSpaceAsTheStartingPoint
 moveSlimes
