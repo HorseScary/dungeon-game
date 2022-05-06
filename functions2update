@@ -1,3 +1,15 @@
 getNextClosestSpace
 isSpaceOnTheOppositeSideOfTheMapUsingASpecifiedSpaceAsTheStartingPoint
 moveSlimes
+
+- is on row/column?
+if true:
+    - move +1 on row/column
+else:
+    - get quadrant 
+    - move (random)
+
++-
+++
+-+
+--

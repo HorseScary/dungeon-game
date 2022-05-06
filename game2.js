@@ -136,23 +136,6 @@ function isRightOfPlayer(space) {
     return(false)
 }
 
-function getNextClosestSpace (space) {
-    distance = distanceToPlayer(space)
-    if (distance < 7) {
-        mod = 1
-    }
-    else {
-        mod = 2
-    }
-
-    if (isPlayerPositionSmaller(space)) {
-        return(space-mod)
-    }
-    else {
-        return(space+mod)
-    }
-}
-
 function getRandomUnoccupiedAdjacentSpace(space) {
     offsets = [-10, -1, 1, 10]
     falseCounter = 0
@@ -258,62 +241,43 @@ function moveSlimes() {
         let space = parseInt(slimes[i].id)
         distance = distanceToPlayer(space)
         
+        // useful
         if (isOnPlayersRow(space)) {
             amountToMove = 1
         }  
         else if (isOnPlayersColumn(space)) {
-            amountToMove = 7
+            amountToMove = 10 
         }
 
-        else {
-            choice = getRandomIntInclusive(1,2)
-            if (choice == 1) {
-                amountToMove = 1
-            }
-            else {
-                amountToMove = 7
-            }
-        }
+        quad = getQuadrant(space)
+
         
-        if (amountToMove == 7) {
-            if (isAbovePlayer(space)) {
-                spaceMod = -1
-            }
-            else {
-                spaceMod = 1
-            }
-        }
-        else if (amountToMove == 1) {
-            if (isRightOfPlayer(space)) {
-                spaceMod = -1
-            }
-            else {
-                spaceMod = 1
-            }
-        }
-
-        targetSpace = space + (amountToMove * spaceMod)
-
-        if (!isOccupied(targetSpace)) {
-            placeSlime(targetSpace)
-            clearSpace(space)
-        }
-        else if (isOccupied(targetSpace) == 'player') {
-            attackPlayer(slime)
-        }
-        else {
-            newSpace = getRandomUnoccupiedAdjacentSpace(space)
-            
-            if (newSpace != null) {
-                placeSlime(newSpace)
-                clearSpace(space)
-            }
-            else {
-                tellPlayer('A slime got trapped and disintegrated into a pile of goo!')
-                clearSpace(space)
-            }
-        }
     }
+}
+
+function getQuadrant(space) {
+    player = getPlayerPosition()
+    quad = []
+
+    if (isOnPlayersColumn || isOnPlayersRow) {
+        return(null)
+    }
+
+    if (isRightOfPlayer(space)) {
+        quad[0] = 1
+    }
+    else {
+        quad[0] = -1
+    }
+
+    if (isAbovePlayer(space)) {
+        quad[1] = 1
+    }
+    else {
+        quad[1] = -1 
+    }
+
+    return(quad)
 }
 
 function attackPlayer(attacker) {
