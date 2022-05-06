@@ -192,7 +192,6 @@ function makeBoard() {
         for (let a = 1; a<=7; a++) {
             document.getElementById("game-container").innerHTML += `<div id="${a}${i}" class="item" occupied="none" onclick="clicked(${a}${i})">${a}${i}</div>`
         }
-//        document.getElementById("game-container").innerHTML += `<div id="${i}" class="item" occupied="none" onclick="clicked(${i})">${i}</div>`;
     }
 }
 
