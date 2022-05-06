@@ -240,6 +240,11 @@ function moveSlimes() {
     for (let i = 0; i < slimes.length; i++) {
         let space = parseInt(slimes[i].id)
         distance = distanceToPlayer(space)
+
+        if (!canIMove(space)) {
+            tellPlayer("A slime got trapped and disintegrated into a pile of goo!")
+            return(undefined)
+        }
         
         // useful
         if (isOnPlayersRow(space)) {
@@ -251,8 +256,23 @@ function moveSlimes() {
 
         quad = getQuadrant(space)
 
-        
+
     }
+}
+
+function canIMove(space) {
+    offsets = [-10, 1, 10, -1]
+    cantMove = []
+    for (i in offsets) {
+        if (isOccupied(space+offsets[i])) {
+            cantMove.push(offsets[i])
+        }
+    }
+
+    if (cantMove.length = 4) {
+        return(false)
+    }
+    return(cantMove)
 }
 
 function getQuadrant(space) {
