@@ -47,6 +47,9 @@ function getPlayerPosition() {
 }
 
 function isOccupied(space) {
+    if (!doesSpaceExist(space)) {
+        return(null)
+    }
     let occupied = document.getElementById(space).getAttribute("occupied")
 
     if (occupied != "none") {
@@ -234,42 +237,59 @@ function placeSlime(tile) {
     slimeTile.setAttribute('occupied', 'slime')
 }
 
+// THIS IS FUCKED UP
+// THE X AND Y MOVEMENT IS INVERTED
+// IT ALSO JUST DOESNT WORK FOR SOME OTHER REASON THAT I HAVNT FIGURED OUT
 function moveSlimes() {
     slimes = getSlimes()
 
     for (let i = 0; i < slimes.length; i++) {
         let space = parseInt(slimes[i].id)
         distance = distanceToPlayer(space)
+        quad = getQuadrant(space)
+        cantMoveHere = canIMove(space)
 
-        if (!canIMove(space)) {
+        if (!cantMoveHere) {
             tellPlayer("A slime got trapped and disintegrated into a pile of goo!")
             return(undefined)
         }
-        
-        // useful
+
         if (isOnPlayersRow(space)) {
-            amountToMove = 1
+            amountToMove = 1 * quad[0]
         }  
         else if (isOnPlayersColumn(space)) {
-            amountToMove = 10 
+            amountToMove = 10 * quad[1]
+        }
+        else {
+            upOrDown = !!getRandomIntInclusive(0,1)
+            if (upOrDown) {
+                amountToMove = 10 * quad[1]
+            }
+            else {
+                amountToMove = 1 * quad[1]
+            }
         }
 
-        quad = getQuadrant(space)
+        if (cantMoveHere.includes(amountToMove)) {
+            amountToMove = getRandomUnoccupiedAdjacentSpace(space)
+        }
 
-
+        placeSlime(amountToMove)
+        clearSpace(space)
     }
 }
 
 function canIMove(space) {
     offsets = [-10, 1, 10, -1]
     cantMove = []
+
     for (i in offsets) {
         if (isOccupied(space+offsets[i])) {
             cantMove.push(offsets[i])
         }
     }
 
-    if (cantMove.length = 4) {
+    if (cantMove.length == 4) {
         return(false)
     }
     return(cantMove)
@@ -278,10 +298,6 @@ function canIMove(space) {
 function getQuadrant(space) {
     player = getPlayerPosition()
     quad = []
-
-    if (isOnPlayersColumn || isOnPlayersRow) {
-        return(null)
-    }
 
     if (isRightOfPlayer(space)) {
         quad[0] = 1
