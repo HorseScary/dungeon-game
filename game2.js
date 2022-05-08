@@ -245,9 +245,9 @@ function moveSlimes() {
 
     for (let i = 0; i < slimes.length; i++) {
         let space = parseInt(slimes[i].id)
-        let distance = distanceToPlayer(space)
-        let quad = getQuadrant(space)
-        let cantMoveHere = canIMove(space)
+        var distance = distanceToPlayer(space)
+        var quad = getQuadrant(space)
+        var cantMoveHere = canIMove(space)
 
         if (!cantMoveHere) {
             tellPlayer("A slime got trapped and disintegrated into a pile of goo!")
