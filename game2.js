@@ -232,7 +232,7 @@ function chestLoot(chestSpace) {
 }
 
 function placeSlime(tile) {
-    slimeTile = document.getElementById(tile)
+    let slimeTile = document.getElementById(tile)
     slimeTile.innerHTML = '<img src="assets/slime.png" alt="a blob of slime with eyes">'
     slimeTile.setAttribute('occupied', 'slime')
 }
@@ -241,19 +241,19 @@ function placeSlime(tile) {
 // THE X AND Y MOVEMENT IS INVERTED
 // IT ALSO JUST DOESNT WORK FOR SOME OTHER REASON THAT I HAVNT FIGURED OUT
 function moveSlimes() {
-    slimes = getSlimes()
+   var slimes = getSlimes()
 
     for (let i = 0; i < slimes.length; i++) {
         let space = parseInt(slimes[i].id)
-        distance = distanceToPlayer(space)
-        quad = getQuadrant(space)
-        cantMoveHere = canIMove(space)
+        let distance = distanceToPlayer(space)
+        let quad = getQuadrant(space)
+        let cantMoveHere = canIMove(space)
 
         if (!cantMoveHere) {
             tellPlayer("A slime got trapped and disintegrated into a pile of goo!")
             //return(undefined)
         }
-
+        
         if (isOnPlayersRow(space)) {
             amountToMove = 1 * quad[0]
         }  
