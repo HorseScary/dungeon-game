@@ -252,8 +252,10 @@ function moveSlimes() {
         if (!cantMoveHere) {
             tellPlayer("A slime got trapped and disintegrated into a pile of goo!")
             //return(undefined)
+            //The "return" would early exit the entire function, meaning that the rest of the slimes wouldn't even attempt to move if the code reaches this line.
+            //If you're looking to restart the for loop, you'll want to use "continue"
         }
-        
+
         if (isOnPlayersRow(space)) {
             amountToMove = 1 * quad[0]
         }  
