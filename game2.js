@@ -112,7 +112,7 @@ function getSlimes() {
 
 function distanceToPlayer (space) {
     player = getPlayerPosition
-    distance = Math.abs(player - space)
+    return Math.abs(player - space)
 }
 
 function isAbovePlayer (spaceY) {
@@ -251,7 +251,7 @@ function moveSlimes() {
 
         if (!cantMoveHere) {
             tellPlayer("A slime got trapped and disintegrated into a pile of goo!")
-            return(undefined)
+            //return(undefined)
         }
 
         if (isOnPlayersRow(space)) {
