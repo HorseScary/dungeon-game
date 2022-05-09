@@ -110,11 +110,6 @@ function getSlimes() {
     return(document.querySelectorAll('[occupied="slime"]'))
 }
 
-function distanceToPlayer (space) {
-    player = getPlayerPosition
-    return Math.abs(player - space)
-}
-
 function isAbovePlayer (spaceY) {
     playerY = getPlayerPosition()[1]
     spaceY = spaceY.toString()[1]
@@ -241,11 +236,10 @@ function placeSlime(tile) {
 // THE X AND Y MOVEMENT IS INVERTED
 // IT ALSO JUST DOESNT WORK FOR SOME OTHER REASON THAT I HAVNT FIGURED OUT
 function moveSlimes() {
-   var slimes = getSlimes()
+    var slimes = getSlimes()
 
     for (let i = 0; i < slimes.length; i++) {
         let space = parseInt(slimes[i].id)
-        var distance = distanceToPlayer(space)
         var quad = getQuadrant(space)
         var cantMoveHere = canIMove(space)
 
