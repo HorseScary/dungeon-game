@@ -112,7 +112,7 @@ function getSlimes() {
 
 function distanceToPlayer (space) {
     player = getPlayerPosition
-    distance = Math.abs(player - space)
+    return Math.abs(player - space)
 }
 
 function isAbovePlayer (spaceY) {
@@ -232,7 +232,7 @@ function chestLoot(chestSpace) {
 }
 
 function placeSlime(tile) {
-    slimeTile = document.getElementById(tile)
+    let slimeTile = document.getElementById(tile)
     slimeTile.innerHTML = '<img src="assets/slime.png" alt="a blob of slime with eyes">'
     slimeTile.setAttribute('occupied', 'slime')
 }
@@ -241,17 +241,19 @@ function placeSlime(tile) {
 // THE X AND Y MOVEMENT IS INVERTED
 // IT ALSO JUST DOESNT WORK FOR SOME OTHER REASON THAT I HAVNT FIGURED OUT
 function moveSlimes() {
-    slimes = getSlimes()
+   var slimes = getSlimes()
 
     for (let i = 0; i < slimes.length; i++) {
         let space = parseInt(slimes[i].id)
-        distance = distanceToPlayer(space)
-        quad = getQuadrant(space)
-        cantMoveHere = canIMove(space)
+        var distance = distanceToPlayer(space)
+        var quad = getQuadrant(space)
+        var cantMoveHere = canIMove(space)
 
         if (!cantMoveHere) {
             tellPlayer("A slime got trapped and disintegrated into a pile of goo!")
-            return(undefined)
+            //return(undefined)
+            //The "return" would early exit the entire function, meaning that the rest of the slimes wouldn't even attempt to move if the code reaches this line.
+            //If you're looking to restart the for loop, you'll want to use "continue"
         }
 
         if (isOnPlayersRow(space)) {
