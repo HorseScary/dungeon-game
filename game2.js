@@ -37,7 +37,7 @@ function getAttack() {
     return (document.getElementById('attack').getAttribute('attack'))
 }
 
-function getDefence() {
+function getDefense() {
     return (document.getElementById("def").getAttribute('def'))
 }
 
@@ -103,7 +103,7 @@ function getRandomUnoccupiedSpace() {
 }
 
 function getLevel() {
-    return(parseInt(document.getElementById('level')))
+    return(parseInt(document.getElementById('level').getAttribute('level')))
 }
 
 function getSlimes() {
@@ -263,10 +263,17 @@ function moveSlimes() {
             }
         }
 
+        var finalSpace = space + amountToMove
+
+        if (isOccupied(finalSpace) == 'player') {
+            attackPlayer('slime')
+            continue
+        }
+
         if (cantMoveHere.includes(amountToMove)) {
             amountToMove = getRandomUnoccupiedAdjacentSpace(space)
+            var finalSpace = space + amountToMove
         }
-        let finalSpace = space + amountToMove
 
         placeSlime(finalSpace)
         clearSpace(space)
@@ -312,16 +319,16 @@ function getQuadrant(space) {
 
 function attackPlayer(attacker) {
     damage = damageTable[attacker]
-    playerDef = getDefence()
-    level = getLevel()
+    playerDef = getDefense()
+    level = parseInt(getLevel())
     
     attackRoll = getRandomIntInclusive(1,100)
-    if (attackRole < playerDef) {
-        tellPlayer(`The ${attacker} hit glanced off your armor!`)
+    if (attackRoll < playerDef) {
+        tellPlayer(`The ${attacker}'s hit glanced off your armor!`)
     } 
     else {
         finalDamage = damage * (1 + (level * .1))
-        increaseHealth(-damage)
+        increaseHealth(damage * -1)
     }
 }
 
@@ -342,7 +349,7 @@ function increaseAttack(amount) {
 
 function increaseDef(amount) {
     let def = document.getElementById('def')
-    def.setAttribute('def', parseInt(getDefence()) + parseInt(amount))
+    def.setAttribute('def', parseInt(getDefense()) + parseInt(amount))
     tellPlayer(`Your defence has increased by ${amount}!`)
 }
 
@@ -351,7 +358,7 @@ function updateStats() {
     hpInfo = document.getElementById('hpinfo')
     attackInfo = document.getElementById('attackinfo')
 
-    defInfo.innerHTML = (getDefence())
+    defInfo.innerHTML = (getDefense())
     hpInfo.innerHTML = (`${getHealth()}/${getMaxHealth()}`)
     attackInfo.innerHTML = (getAttack())
 }
