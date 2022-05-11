@@ -232,9 +232,8 @@ function placeSlime(tile) {
     slimeTile.setAttribute('occupied', 'slime')
 }
 
-// THIS IS FUCKED UP
-// THE X AND Y MOVEMENT IS INVERTED
-// IT ALSO JUST DOESNT WORK FOR SOME OTHER REASON THAT I HAVNT FIGURED OUT
+// Sometimes the slime tries to move to a space in the hundreds
+// but it mostly works
 function moveSlimes() {
     var slimes = getSlimes()
 
@@ -249,15 +248,15 @@ function moveSlimes() {
         }
 
         if (isOnPlayersRow(space)) {
-            amountToMove = 1 * quad[0]
+            amountToMove = 10 * quad[0]
         }  
         else if (isOnPlayersColumn(space)) {
-            amountToMove = 10 * quad[1]
+            amountToMove = 1 * quad[1]
         }
         else {
-            upOrDown = !!getRandomIntInclusive(0,1)
+            upOrDown = getRandomIntInclusive(0,1)
             if (upOrDown) {
-                amountToMove = 10 * quad[1]
+                amountToMove = 10 * quad[0]
             }
             else {
                 amountToMove = 1 * quad[1]
@@ -267,15 +266,16 @@ function moveSlimes() {
         if (cantMoveHere.includes(amountToMove)) {
             amountToMove = getRandomUnoccupiedAdjacentSpace(space)
         }
+        let finalSpace = space + amountToMove
 
-        placeSlime(amountToMove)
+        placeSlime(finalSpace)
         clearSpace(space)
     }
 }
 
 function canIMove(space) {
-    offsets = [-10, 1, 10, -1]
-    cantMove = []
+    var offsets = [10, -1, -10, 1]
+    var cantMove = []
 
     for (i in offsets) {
         if (isOccupied(space+offsets[i])) {
@@ -294,17 +294,17 @@ function getQuadrant(space) {
     quad = []
 
     if (isRightOfPlayer(space)) {
-        quad[0] = 1
+        quad[0] = -1
     }
     else {
-        quad[0] = -1
+        quad[0] = 1
     }
 
     if (isAbovePlayer(space)) {
-        quad[1] = 1
+        quad[1] = -1
     }
     else {
-        quad[1] = -1 
+        quad[1] = 1 
     }
 
     return(quad)
