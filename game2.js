@@ -249,43 +249,35 @@ function moveSlimes() {
 
         if (!cantMoveHere) {
             tellPlayer("A slime got trapped and disintegrated into a pile of goo!")
-            console.log('cantmove')
             continue
         }
 
         if (isOnPlayersRow(space)) {
             amountToMove = 10 * quad[0]
-            console.log('row')
         }  
         else if (isOnPlayersColumn(space)) {
             amountToMove = 1 * quad[1]
-            console.log('column')
         }
         else {
             upOrDown = getRandomIntInclusive(0,1)
             if (upOrDown) {
                 amountToMove = 10 * quad[0]
-                console.log('upordown(10)')
             }
             else {
                 amountToMove = 1 * quad[1]
-                console.log('upordown(1)')
             }
         }
 
         if (cantMoveHere.includes(amountToMove)) {
             amountToMove = getRandomUnoccupiedAdjacentSpace(space)
-            console.log('random')
         }
 
         var finalSpace = space + amountToMove
 
         if (isOccupied(finalSpace) == 'player') {
             attackPlayer('slime')
-            console.log('attack')
             continue
         }
-
 
         placeSlime(finalSpace)
         clearSpace(space)
